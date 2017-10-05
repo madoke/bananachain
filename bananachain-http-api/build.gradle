@@ -1,0 +1,26 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "io.ratpack:ratpack-gradle:1.5.0"
+    }
+}
+
+apply plugin: "io.ratpack.ratpack-java"
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "application"
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile project(':bananachain-core')
+
+    compile 'org.slf4j:slf4j-api:1.7.25'
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+}
+
+mainClassName = "org.madoke.bananachain.api.BananachainHttpServer"

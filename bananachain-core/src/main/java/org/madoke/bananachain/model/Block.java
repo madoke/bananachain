@@ -38,4 +38,5 @@ public class Block {
     public void setNonce(Integer nonce) {
         this.nonce = nonce;
     }
+
 }

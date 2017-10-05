@@ -41,23 +41,4 @@ public class BananaChain implements Blockchain {
         }
     }
 
-    public static void main(String[] args) {
-        BananaChain bc = new BananaChain();
-        bc.insertData("theData");
-        bc.mine();
-        List<Block> blocks = bc.getBlocks();
-        System.out.println(blocks.get(0).getData());
-        System.out.println(blocks.get(0).getHash());
-        System.out.println(blocks.get(0).getPreviousBlockHash());
-        System.out.println(blocks.get(0).getNonce());
-
-        bc.insertData("theData2");
-        bc.mine();
-        blocks = bc.getBlocks();
-        System.out.println(blocks.get(0).getData());
-        System.out.println(blocks.get(0).getHash());
-        System.out.println(blocks.get(0).getPreviousBlockHash());
-        System.out.println(blocks.get(0).getNonce());
-    }
-
 }
