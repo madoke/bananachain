@@ -24,4 +24,4 @@ dependencies {
     compile 'ch.qos.logback:logback-classic:1.2.3'
 }
 
-mainClassName = "org.madoke.bananachain.api.BananachainHttpServer"
+mainClassName = "org.madoke.bananachain.node.BananaChainServer"

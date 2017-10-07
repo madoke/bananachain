@@ -24,9 +24,9 @@ hs_err_pid*
 # Intellij IDEA
 .idea
 *.iml
-/out/
+out/
 
 # Gradle
 .gradle
-/build/
+build/
 !gradle-wrapper.jar
