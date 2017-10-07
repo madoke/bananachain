@@ -8,12 +8,12 @@ import javax.inject.Inject;
 
 import static ratpack.jackson.Jackson.json;
 
-public class GetBlockchainHandler implements Handler {
+public class GetBlocksHandler implements Handler {
 
     private final BananaChain bananaChain;
 
     @Inject
-    public GetBlockchainHandler(BananaChain bananaChain) {
+    public GetBlocksHandler(BananaChain bananaChain) {
         this.bananaChain = bananaChain;
     }
 
