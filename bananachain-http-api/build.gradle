@@ -18,6 +18,7 @@ repositories {
 
 dependencies {
     compile project(':bananachain-core')
+    compile ratpack.dependency('guice')
 
     compile 'org.slf4j:slf4j-api:1.7.25'
     compile 'ch.qos.logback:logback-classic:1.2.3'

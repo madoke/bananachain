@@ -1,7 +1,7 @@
 package org.madoke.bananachain.api;
 
 import org.madoke.bananachain.BananaChain;
-import org.madoke.bananachain.model.Block;
+import org.madoke.bananachain.blockchain.Block;
 import ratpack.server.RatpackServer;
 
 import java.util.List;
