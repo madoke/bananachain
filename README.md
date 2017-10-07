@@ -9,6 +9,7 @@ Check out the [wiki](https://github.com/madoke/bananachain/wiki) for some theory
 
 Requirements:
 - java
+
 This will start a bananachain node on your machine with an empty chain.
 
 ```bash
@@ -19,10 +20,12 @@ This will start a bananachain node on your machine with an empty chain.
 
 #### GET /blocks
 This will return the list of blocks in the blockchain.
+
 Example request:
 ```bash
 curl -X GET http://localhost:5050/blocks 
 ```
+
 Example response:
 ```json
 [
@@ -41,8 +44,10 @@ Example response:
 #### PUT /data
 
 This will add data to the node's mempool, which will eventually be mined into a block
+
 Example Request:
 ```bash
 curl -X PUT http://localhost:5050/data -H 'content-type: application/json' -d '{"data":"Test data !"}'
 ```
+
 There is no response body, just a 200 OK
