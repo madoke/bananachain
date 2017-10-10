@@ -20,8 +20,8 @@ dependencies {
     compile project(':bananachain-core')
     compile ratpack.dependency('guice')
 
-    compile 'org.slf4j:slf4j-api:1.7.25'
-    compile 'ch.qos.logback:logback-classic:1.2.3'
+    compile "org.slf4j:slf4j-api:${versions.slf4j}"
+    compile "ch.qos.logback:logback-classic:${versions.logback}"
 }
 
 mainClassName = "org.madoke.bananachain.node.BananaChainServer"
