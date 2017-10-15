@@ -4,5 +4,6 @@ apply plugin: 'java'
 ext.versions = [
         slf4j: '1.7.25',
         lifecycle: '1.0.2',
-        logback: '1.2.3'
+        logback: '1.2.3',
+        junit: '4.12'
 ]

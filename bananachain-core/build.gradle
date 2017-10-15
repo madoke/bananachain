@@ -18,4 +18,5 @@ repositories {
 dependencies {
     compile "org.slf4j:slf4j-api:${versions.slf4j}"
     compile "org.irenical.lifecycle:lifecycle:${versions.lifecycle}"
+    compile "junit:junit:${versions.junit}"
 }
