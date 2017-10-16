@@ -1,7 +1,8 @@
 package org.madoke.bananachain.node;
 
 import org.madoke.bananachain.node.handlers.GetBlocksHandler;
-import org.madoke.bananachain.node.handlers.PutDataHandler;
+import org.madoke.bananachain.node.handlers.GetMemPoolHandler;
+import org.madoke.bananachain.node.handlers.PutEntryHandler;
 import org.madoke.bananachain.node.modules.BananaChainModule;
 import org.madoke.bananachain.node.modules.JacksonModule;
 import ratpack.guice.Guice;
@@ -16,8 +17,9 @@ public class BananaChainServer {
                     .module(BananaChainModule.class)
             ))
             .handlers(chain -> chain
+                .get("mempool", GetMemPoolHandler.class)
                 .get("blocks", GetBlocksHandler.class)
-                .put("data", PutDataHandler.class)
+                .put("entry", PutEntryHandler.class)
             )
         );
     }

@@ -1,5 +1,4 @@
 rootProject.name = 'bananachain'
 
 include 'bananachain-core',
-        'bananachain-node',
-        'bananachain-client'
+        'bananachain-node'
