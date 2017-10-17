@@ -7,6 +7,7 @@ import org.madoke.bananachain.blockchain.Entry;
 import org.madoke.bananachain.proofofwork.BruteforceHashProof;
 import org.madoke.bananachain.proofofwork.ProofOfWork;
 import org.madoke.bananachain.utils.ECDSAUtil;
+import org.madoke.bananachain.utils.HashUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,12 +44,12 @@ public class BananaChain implements Blockchain, LifeCycle {
   @Override
   public void stop() {
     isRunning = false;
-//    try {
-//      miner.join();
-//    } catch (InterruptedException e) {
-//      LOG.error("Miner did not terminate on time", e);
-//      Thread.interrupted();
-//    }
+    try {
+      miner.join();
+    } catch (InterruptedException e) {
+      LOG.error("Miner did not terminate on time", e);
+      Thread.interrupted();
+    }
   }
 
 
@@ -72,8 +73,8 @@ public class BananaChain implements Blockchain, LifeCycle {
     if (blocks.isEmpty()) {
       blocks.add(genesisBlock());
     }
-//    miner = new Thread(this::mine);
-//    miner.start();
+    miner = new Thread(this::mine);
+    miner.start();
     isRunning = true;
   }
 
@@ -89,7 +90,8 @@ public class BananaChain implements Blockchain, LifeCycle {
     entry.setData("Genesis Block");
     genesis.setData(Collections.singletonList(entry));
     genesis.setTimestamp(ZonedDateTime.now(UTC));
-    genesis.setPreviousBlockHash("00000000000000000000000000000000");
+    genesis.setPreviousBlockHash("0000000000000000000000000000000000000000000000000000000000000000");
+    genesis.setHash(HashUtils.sha256(genesis.toString()));
     return genesis;
   }
 
@@ -98,28 +100,28 @@ public class BananaChain implements Blockchain, LifeCycle {
    * Infinite loop that continuously mines blocks as soon as the
    * blockchain is ready and data is available in the memPool
    */
-//  private void mine() {
-//    while (isRunning) {
-//      // Get the block data from the mem pool
-//      LinkedList<Entry> blockData = new LinkedList<>();
-//      while (blockData.size() < MAX_BLOCK_ENTRIES) {
-//        try {
-//          blockData.offer(mempool.take());
-//        } catch (InterruptedException e) {
-//          LOG.warn("Attempt to interrupt miner", e);
-//          Thread.interrupted();
-//        }
-//      }
-//      Block block = new Block();
-//      block.setPreviousBlockHash(blocks.getLast().getHash());
-//      block.setTimestamp(ZonedDateTime.now(UTC));
-//      block.setData(blockData);
-//      block.setHash(HashUtils.sha256(block.toString()));
-//      block = proofOfWork.getProof(block);
-//      blocks.add(block);
-//    }
-//  }
-  
+  private void mine() {
+    while (isRunning) {
+      // Get the block data from the mem pool
+      LinkedList<Entry> blockData = new LinkedList<>();
+      while (blockData.size() < MAX_BLOCK_ENTRIES) {
+        try {
+          blockData.offer(mempool.take());
+        } catch (InterruptedException e) {
+          LOG.warn("Attempt to interrupt miner", e);
+          Thread.interrupted();
+        }
+      }
+      Block block = new Block();
+      block.setPreviousBlockHash(blocks.getLast().getHash());
+      block.setTimestamp(ZonedDateTime.now(UTC));
+      block.setData(blockData);
+      block.setHash(HashUtils.sha256(block.toString()));
+      block = proofOfWork.getProof(block);
+      blocks.add(block);
+    }
+  }
+
   @Override
   public boolean add(Entry entry) {
     boolean isValid = false;
