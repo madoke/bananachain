@@ -3,48 +3,73 @@ package org.madoke.bananachain.blockchain;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+/**
+ * The underlying data structure in the blockchain
+ */
 public class Block {
 
-  private ZonedDateTime timestamp;
   private String hash;
+
   private String previousBlockHash;
+
   private List<Entry> data;
+
   private Integer nonce;
 
-  public String getHash() {
-    return hash;
-  }
+  private ZonedDateTime timestamp;
+
 
   public void setHash(String hash) {
     this.hash = hash;
   }
 
-  public String getPreviousBlockHash() {
-    return previousBlockHash;
+  /**
+   * The block's hash
+   *
+   * @return a sha256 hash string
+   */
+  public String getHash() {
+    return hash;
   }
 
   public void setPreviousBlockHash(String previousBlockHash) {
     this.previousBlockHash = previousBlockHash;
   }
 
-  public List<Entry> getData() {
-    return data;
+  /**
+   * The previous block's hash
+   *
+   * @return a sha256 hash string
+   */
+  public String getPreviousBlockHash() {
+    return previousBlockHash;
   }
 
   public void setData(List<Entry> data) {
     this.data = data;
   }
 
-  public Integer getNonce() {
-    return nonce;
+  /**
+   * The list of entries contained in this block
+   *
+   * @return a list of Entry objects
+   */
+  public List<Entry> getData() {
+    return data;
   }
 
   public void setNonce(Integer nonce) {
     this.nonce = nonce;
   }
 
-  public ZonedDateTime getTimestamp() {
-    return timestamp;
+  /**
+   * The number that combined with the remaining fields resulted in producing
+   * a valid proof of work for this block
+   *
+   * @return an integer with the proof of work number
+   */
+  public Integer getNonce() {
+    return nonce;
   }
 
   public void setTimestamp(ZonedDateTime timestamp) {
@@ -52,11 +77,14 @@ public class Block {
   }
 
   /**
-   * Builds a string representation of this block, containing
-   * all the fields
+   * The timestamp at which the data was validated and the block mined
    *
-   * @return a String instance
+   * @return a timestamp in utc timezone
    */
+  public ZonedDateTime getTimestamp() {
+    return timestamp;
+  }
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();

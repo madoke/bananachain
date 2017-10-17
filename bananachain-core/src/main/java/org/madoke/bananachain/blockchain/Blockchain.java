@@ -26,6 +26,11 @@ public interface Blockchain {
    */
   Queue<Entry> getMempool();
 
+  /**
+   * Retrieve the list of blocks that were previously mined
+   *
+   * @return the blocks that form the blockchain
+   */
   List<Block> getBlocks();
 
 }

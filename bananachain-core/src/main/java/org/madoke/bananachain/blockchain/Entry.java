@@ -11,27 +11,44 @@ public class Entry {
   private String signature;
   private String publicKey;
 
-  public String getData() {
-    return data;
-  }
-
   public void setData(String data) {
     this.data = data;
   }
 
-  public String getSignature() {
-    return signature;
+  /**
+   * The actual data
+   *
+   * @return a string with the data in this entry
+   */
+  public String getData() {
+    return data;
   }
+
   public void setSignature(String signature) {
     this.signature = signature;
   }
 
-  public String getPublicKey() {
-    return publicKey;
+  /**
+   * A Cryptographic signature that ties the data in this entry to a pair of
+   * private/public keys
+   *
+   * @return a string with the signature encoded in base64
+   */
+  public String getSignature() {
+    return signature;
   }
 
   public void setPublicKey(String publicKey) {
     this.publicKey = publicKey;
+  }
+
+  /**
+   * The public key that will be used to verify the data signature
+   *
+   * @return a string with the public key encoded in base64
+   */
+  public String getPublicKey() {
+    return publicKey;
   }
 
 }
