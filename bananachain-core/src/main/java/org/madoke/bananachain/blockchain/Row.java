@@ -5,7 +5,7 @@ package org.madoke.bananachain.blockchain;
  * owner (the entity that originally submitted the data) by a signature of that
  * data, which was created with a private key, and the corresponding public key
  */
-public class Entry {
+public class Row {
 
   private String data;
   private String signature;

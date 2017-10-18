@@ -9,14 +9,14 @@ import java.util.Queue;
 public interface Blockchain {
 
   /**
-   * Submit an entry to the blockchain. The entry's signature is verified
-   * and if it's valid, the entry is added to the mempool, where it will
+   * Submit an row to the blockchain. The row's signature is verified
+   * and if it's valid, the row is added to the mempool, where it will
    * remain until it's added to a block.
-   *
-   * @param entry the entry to submit
+   *mit
+   * @param row the row to sub
    * @return true if the signature is valid and the data is successfully queued
    */
-  boolean add(Entry entry);
+  boolean insert(Row row);
 
   /**
    * Retrieve the queue of entries that are verified and waiting to be added
@@ -24,7 +24,7 @@ public interface Blockchain {
    *
    * @return the entries in the mempool
    */
-  Queue<Entry> getMempool();
+  Queue<Row> getMempool();
 
   /**
    * Retrieve the list of blocks that were previously mined

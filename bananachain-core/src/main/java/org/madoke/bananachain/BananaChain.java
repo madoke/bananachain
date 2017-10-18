@@ -3,7 +3,7 @@ package org.madoke.bananachain;
 import org.irenical.lifecycle.LifeCycle;
 import org.madoke.bananachain.blockchain.Block;
 import org.madoke.bananachain.blockchain.Blockchain;
-import org.madoke.bananachain.blockchain.Entry;
+import org.madoke.bananachain.blockchain.Row;
 import org.madoke.bananachain.proofofwork.BruteforceHashProof;
 import org.madoke.bananachain.proofofwork.ProofOfWork;
 import org.madoke.bananachain.utils.ECDSAUtil;
@@ -33,7 +33,7 @@ public class BananaChain implements Blockchain, LifeCycle {
 
   private final LinkedList<Block> blocks = new LinkedList<>();
 
-  private final LinkedBlockingQueue<Entry> mempool = new LinkedBlockingQueue<>();
+  private final LinkedBlockingQueue<Row> mempool = new LinkedBlockingQueue<>();
 
   private final ProofOfWork proofOfWork = new BruteforceHashProof(DIFFICULTY);
 
@@ -86,9 +86,9 @@ public class BananaChain implements Blockchain, LifeCycle {
    */
   private Block genesisBlock() {
     Block genesis = new Block();
-    Entry entry = new Entry();
-    entry.setData("Genesis Block");
-    genesis.setData(Collections.singletonList(entry));
+    Row row = new Row();
+    row.setData("Genesis Block");
+    genesis.setData(Collections.singletonList(row));
     genesis.setTimestamp(ZonedDateTime.now(UTC));
     genesis.setPreviousBlockHash("0000000000000000000000000000000000000000000000000000000000000000");
     genesis.setHash(HashUtils.sha256(genesis.toString()));
@@ -103,7 +103,7 @@ public class BananaChain implements Blockchain, LifeCycle {
   private void mine() {
     while (isRunning) {
       // Get the block data from the mem pool
-      LinkedList<Entry> blockData = new LinkedList<>();
+      LinkedList<Row> blockData = new LinkedList<>();
       while (blockData.size() < MAX_BLOCK_ENTRIES) {
         try {
           blockData.offer(mempool.take());
@@ -123,24 +123,24 @@ public class BananaChain implements Blockchain, LifeCycle {
   }
 
   @Override
-  public boolean add(Entry entry) {
+  public boolean insert(Row row) {
     boolean isValid = false;
 
     try {
-      isValid = ECDSAUtil.verify(entry.getData(), entry.getSignature(), entry.getPublicKey());
+      isValid = ECDSAUtil.verify(row.getData(), row.getSignature(), row.getPublicKey());
     } catch (InvalidKeyException | SignatureException e) {
       LOG.error("Could not verify signature", e);
     }
 
     if (isValid) {
-      mempool.add(entry);
+      mempool.add(row);
     }
 
     return isValid;
   }
 
   @Override
-  public Queue<Entry> getMempool() {
+  public Queue<Row> getMempool() {
     return mempool;
   }
 

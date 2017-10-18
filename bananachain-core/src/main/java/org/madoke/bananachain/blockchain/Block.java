@@ -12,7 +12,7 @@ public class Block {
 
   private String previousBlockHash;
 
-  private List<Entry> data;
+  private List<Row> data;
 
   private Integer nonce;
 
@@ -45,16 +45,16 @@ public class Block {
     return previousBlockHash;
   }
 
-  public void setData(List<Entry> data) {
+  public void setData(List<Row> data) {
     this.data = data;
   }
 
   /**
    * The list of entries contained in this block
    *
-   * @return a list of Entry objects
+   * @return a list of Row objects
    */
-  public List<Entry> getData() {
+  public List<Row> getData() {
     return data;
   }
 
@@ -88,7 +88,7 @@ public class Block {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    for (Entry s : getData()) {
+    for (Row s : getData()) {
       sb.append(s.getData())
         .append(s.getPublicKey())
         .append(s.getSignature());

@@ -1,7 +1,7 @@
 package org.madoke.bananachain.node.handlers;
 
 import org.madoke.bananachain.BananaChain;
-import org.madoke.bananachain.blockchain.Entry;
+import org.madoke.bananachain.blockchain.Row;
 import ratpack.handling.Context;
 import ratpack.handling.Handler;
 import ratpack.http.Status;
@@ -21,9 +21,9 @@ public class PutEntryHandler implements Handler {
 
   @Override
   public void handle(Context ctx) throws Exception {
-    ctx.parse(fromJson(Entry.class))
+    ctx.parse(fromJson(Row.class))
       .then(data -> {
-        boolean added = bananaChain.add(data);
+        boolean added = bananaChain.insert(data);
         if (added) {
           ctx.getResponse().status(Status.of(201)).send();
         } else {
