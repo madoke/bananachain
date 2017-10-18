@@ -9,18 +9,22 @@ import ratpack.guice.Guice;
 import ratpack.server.RatpackServer;
 
 public class BananaChainServer {
-    public static void main(String[] args) throws Exception {
-        RatpackServer.start(server -> server
-            .registry(Guice.registry(bindingsSpec ->
-                bindingsSpec
-                    .module(JacksonModule.class)
-                    .module(BananaChainModule.class)
-            ))
-            .handlers(chain -> chain
-                .get("mempool", GetMemPoolHandler.class)
-                .get("blocks", GetBlocksHandler.class)
-                .put("entry", PutEntryHandler.class)
-            )
-        );
-    }
+  public static void main(String[] args) throws Exception {
+    RatpackServer.start(server -> server
+      .registry(Guice.registry(bindingsSpec ->
+        bindingsSpec
+          .module(JacksonModule.class)
+          .module(BananaChainModule.class)
+      ))
+      .handlers(chain -> chain
+        .path("mempool", ctx ->
+          ctx.byMethod(m ->
+            m.get(GetMemPoolHandler.class)
+              .put(PutEntryHandler.class)
+          )
+        )
+        .get("blocks", GetBlocksHandler.class)
+      )
+    );
+  }
 }
